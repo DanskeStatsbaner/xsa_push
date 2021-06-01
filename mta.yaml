@@ -1,0 +1,93 @@
+_schema-version: '2.0'
+ID: XSA_PUSH
+description: XSA_PUSH
+version: 0.0.1
+
+modules:
+ - name:  XSA_PUSH-DWF
+   type: dwf
+#   parameters:
+#      app-name: XSA_PUSH-DWF
+   path: DWF
+   requires:
+#      - name: XSA_PUSH-uaa
+      - name: XSA_PUSH-dws
+   properties:
+     memory: 256M
+
+ - name: XSA_PUSH-Backend
+   type: nodejs
+#   parameters:
+#      app-name: XSA_PUSH-Backend
+   path: Backend
+   requires:
+#      - name: XSA_PUSH-uaa
+      - name: XSA_PUSH-container
+      - name: XSA_PUSH-dws
+   properties:
+     memory: 512M
+     API_END_POINT: "${xs-api-url}"
+#     SAP_JWT_TRUST_ACL: "[{\"clientid\":\"*\",\"identityzone\":\"*\"}]"
+   provides:
+    - name:  XSA_PUSH-Backend
+      properties:
+       service_url: ${default-url}
+
+ - name: XSA_PUSH-Database
+   type: hdb
+#   parameters:
+#      app-name: XSA_PUSH-Database
+   path: Database
+   requires:
+    - name: XSA_PUSH-container
+      properties:
+        TARGET_CONTAINER: '~{hdi-container-name}'
+   properties:
+     memory: 256M
+     HDI_DEPLOY_OPTIONS: { "auto_undeploy": true }
+
+resources:
+# - name: XSA_PUSH-uaa
+#   type: com.sap.xs.uaa
+#   parameters:
+#     service-name: XSA_PUSH-uaa
+#     service-plan: space
+#     config:
+#         xsappname: XSA_PUSH
+#         scopes:
+#          - name: $XSAPPNAME.TOE
+#            description: access for TOE
+#            grant-as-authority-to-apps:
+#             - dwf-toe
+#             - dwf-runtime
+#            granted-apps:
+#             - dwf-toe
+#             - dwf-runtime
+#         authorities:
+#          - $ACCEPT_GRANTED_AUTHORITIES
+#         role-templates:
+#           - name: User
+#             description: Access API
+#             scope-references:
+#              - $XSAPPNAME.TOE
+
+ 
+ - name: XSA_PUSH-dws
+   properties:
+      dwf-edw-client-name: ${service-name}
+#      dwf-edw-client-name: XSA_PUSH-dws
+#   parameters:
+#      service-name: XSA_PUSH-dws
+   type: com.sap.xs.dwf-edw-client
+ - name: XSA_PUSH-container
+   properties:
+      hdi-container-name: ${service-name}
+#      hdi-container-name: XSA_PUSH-container
+#   parameters:
+#      service-name: XSA_PUSH-container
+   type: com.sap.xs.hdi-container
+   parameters:
+     config:
+        schema: XSA_PUSH
+     service-keys:
+     - name: dwf-monitor
