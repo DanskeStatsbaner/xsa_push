@@ -10,7 +10,6 @@
       "inline": {
         "type": "executeProcedure",
         "taskGroup": "hanaNative",
-        "description": "Start push",
         "parameterValues": [
           {
             "id": "procName",
