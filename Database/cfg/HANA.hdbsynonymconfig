@@ -1,0 +1,8 @@
+{
+  "DataWareHouse.Database.Synonyms::DUMMY": {
+    "target": {
+      "schema": "SYS",
+      "object": "DUMMY"
+    }
+ }
+}
