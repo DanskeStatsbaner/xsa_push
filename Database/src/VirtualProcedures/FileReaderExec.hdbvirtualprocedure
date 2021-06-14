@@ -1,6 +1,6 @@
-VIRTUAL PROCEDURE "DataWareHouse.Database.VirtualProcedures::FileReader2Exec" 
+VIRTUAL PROCEDURE "DataWareHouse.Database.VirtualProcedures::FileReaderExec" 
 (IN PATH NVARCHAR(1024), 
- IN PARAM NVARCHAR(1024), 
+ IN PARAM NVARCHAR(5000), 
  IN FLAG INTEGER, 
  OUT param_3 TABLE (RESULT NVARCHAR(5000)))
 CONFIGURATION '{

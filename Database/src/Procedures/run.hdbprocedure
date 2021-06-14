@@ -1,0 +1,40 @@
+PROCEDURE "DataWareHouse.Database.Procedures::run"(
+		OUT OUTPUT table (
+			RESPONSE NVARCHAR(5000)
+		)
+	)
+   LANGUAGE SQLSCRIPT
+   SQL SECURITY INVOKER AS
+BEGIN
+    
+    DECLARE action_response_state VARCHAR(100);
+    DECLARE uuid VARCHAR(100);
+    
+    -- Obtain JWT from XSUAA
+    DECLARE jwt_string VARCHAR(5000);
+    CALL "DataWareHouse.Database.Procedures::token"(jwt_response);
+	SELECT JWT INTO jwt_string FROM :jwt_response;
+	
+	SELECT SYSUUID INTO uuid FROM "DataWareHouse.Database.Synonyms::DUMMY";
+	
+	CALL "DataWareHouse.Database.Procedures::action"('start', uuid, jwt_string, action_response);
+    SELECT STATE INTO action_response_state FROM :action_response;
+    
+    IF action_response_state = 'OK' THEN
+    	WHILE action_response_state != 'failed' AND action_response_state != 'completed' DO
+	    	CALL "DataWareHouse.Database.Procedures::action"('status', uuid, jwt_string, action_response);
+	    	SELECT STATE INTO action_response_state FROM :action_response;
+	    	CALL SQLSCRIPT_SYNC:SLEEP_SECONDS(1);
+    	END WHILE;
+    	
+    	IF action_response_state = 'failed' THEN
+    		CALL "DataWareHouse.Database.Procedures::error"('Task failed, check Python logs');
+    	END IF;
+    
+    	OUTPUT = SELECT 'Task finished' AS RESPONSE FROM "DataWareHouse.Database.Synonyms::DUMMY";
+    ELSE
+	    CALL "DataWareHouse.Database.Procedures::error"('Task exited within one second, check Python logs');
+    END IF;
+
+END
+

@@ -1,0 +1,15 @@
+PROCEDURE "DataWareHouse.Database.Procedures::action_curl"(IN ins TABLE (ACTION NVARCHAR(5000), UUID NVARCHAR(100), JWT NVARCHAR(5000)), OUT outs TABLE (RESPONSE NVARCHAR(5000)))
+LANGUAGE RLANG
+READS SQL DATA AS 
+BEGIN
+
+	command <- paste(
+		sprintf('curl -s https://push.xsabinu0.dsb.dk:30033/%s?uuid=%s', ins$ACTION, ins$UUID),
+		'-X POST',
+		'-H "Content-Type: application/json"',
+		sprintf('-H "Authorization: Bearer %s"', ins$JWT),
+	sep=" ")
+	response <- system(command, intern = TRUE)
+	outs <- data.frame(RESPONSE=response)
+	
+END

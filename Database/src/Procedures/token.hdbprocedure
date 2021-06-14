@@ -1,0 +1,15 @@
+PROCEDURE "DataWareHouse.Database.Procedures::token"(
+		OUT OUTPUT table (
+			JWT NVARCHAR(5000)
+		)
+	)
+   LANGUAGE SQLSCRIPT
+   SQL SECURITY INVOKER
+   READS SQL DATA AS
+BEGIN
+
+	CALL "DataWareHouse.Database.VirtualProcedures::FileReaderExec"('/usr/sap/dataprovagent/dsbfil5dk002_SHIPExchange/MILIMAT0810/token.sh', '', 8, response);
+	OUTPUT = SELECT RESULT AS JWT FROM :response;
+
+END
+

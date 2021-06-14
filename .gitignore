@@ -1,3 +1,6 @@
+humio.hdbprocedure
+humio_curl.hdbprocedure
+
 # Logs
 logs
 *.log
