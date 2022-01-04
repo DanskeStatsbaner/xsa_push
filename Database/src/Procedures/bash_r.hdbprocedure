@@ -1,0 +1,9 @@
+PROCEDURE "DataWareHouse.Database.Procedures::bash_r"(IN ins TABLE (COMMAND NVARCHAR(5000)), OUT outs TABLE (RESPONSE NVARCHAR(5000)))
+LANGUAGE RLANG
+READS SQL DATA AS 
+BEGIN
+
+	response <- system(ins$COMMAND, intern = TRUE)
+	outs <- data.frame(RESPONSE=response)
+	
+END

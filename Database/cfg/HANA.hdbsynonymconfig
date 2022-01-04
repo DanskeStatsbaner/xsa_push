@@ -1,8 +1,14 @@
 {
-  "DataWareHouse.Database.Synonyms::DUMMY": {
-    "target": {
-      "schema": "SYS",
-      "object": "DUMMY"
-    }
- }
+	"DataWareHouse.Database.Synonyms::DUMMY": {
+		"target": {
+			"schema": "SYS",
+			"object": "DUMMY"
+		}
+	},
+	"DataWareHouse.Database.Synonyms::XSA_KEY_VAULT_KEYS": {
+		"target": {
+			"object": "XSA_KEY_VAULT.db.Tables::Key_Vault.Keys",
+			"*.configure": "XSA_KEY_VAULT"
+		}
+	}
 }

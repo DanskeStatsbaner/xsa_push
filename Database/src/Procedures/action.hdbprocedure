@@ -13,12 +13,10 @@ BEGIN
 
 	DECLARE JSON_RESPONSE NVARCHAR(5000);
 	DECLARE FAILED NVARCHAR(5000);
+
+	CALL "DataWareHouse.Database.Procedures::bash"(COMMAND => 'curl -s https://ap-system-python.xsabinu0.dsb.dk:30033/' || ACTION || '?uuid=' || UUID || ' -X POST -H "Content-Type: application/json" -H "Authorization: Bearer '  || JWT || '"', OUTPUT => RESPONSE);
 	
-	ins = SELECT ACTION, UUID, JWT FROM "DataWareHouse.Database.Synonyms::DUMMY";
-	CALL "DataWareHouse.Database.Procedures::action_curl"(INS => :ins, OUTS => response);
-	response = SELECT * FROM :response;
-	
-	SELECT RESPONSE INTO JSON_RESPONSE FROM :response;
+	SELECT RESPONSE INTO JSON_RESPONSE FROM :RESPONSE;
 	
 	RESPONSE_TABLE = SELECT JSON_VALUE(JSON_RESPONSE, '$.response') AS RESPONSE, JSON_VALUE(JSON_RESPONSE, '$.state') AS STATE, JSON_VALUE(JSON_RESPONSE, '$.detail') AS DETAIL FROM "DataWareHouse.Database.Synonyms::DUMMY";
 	

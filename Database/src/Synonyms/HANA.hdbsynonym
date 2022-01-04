@@ -1,3 +1,4 @@
 {
-  "DataWareHouse.Database.Synonyms::DUMMY": {}
+	"DataWareHouse.Database.Synonyms::DUMMY": {},
+	"DataWareHouse.Database.Synonyms::XSA_KEY_VAULT_KEYS": {}
 }

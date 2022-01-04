@@ -42,6 +42,11 @@ modules:
     - name: XSA_PUSH-container
       properties:
         TARGET_CONTAINER: '~{hdi-container-name}'
+    - name: XSA_KEY_VAULT
+      group: SERVICE_REPLACEMENTS
+      properties:
+        key: XSA_KEY_VAULT
+        service: ~{the-service-name}  
    properties:
      memory: 256M
      HDI_DEPLOY_OPTIONS: { "auto_undeploy": true }
@@ -91,3 +96,10 @@ resources:
         schema: XSA_PUSH
      service-keys:
      - name: dwf-monitor
+ - name: XSA_KEY_VAULT
+   parameters:
+      service-name: XSA_KEY_VAULT-CONTAINER
+   properties:
+      the-service-name: ${service-name}
+   type: org.cloudfoundry.existing-service
+                        
