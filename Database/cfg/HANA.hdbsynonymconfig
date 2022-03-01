@@ -5,9 +5,57 @@
 			"object": "DUMMY"
 		}
 	},
+	"DataWareHouse.Database.Synonyms::M_DATABASE": {
+		"target": {
+			"schema": "SYS",
+			"object": "M_DATABASE"
+		}
+	},
 	"DataWareHouse.Database.Synonyms::XSA_KEY_VAULT_KEYS": {
 		"target": {
 			"object": "XSA_KEY_VAULT.db.Tables::Key_Vault.Keys",
+			"*.configure": "XSA_KEY_VAULT"
+		}
+	},
+	"DataWareHouse.Database.Synonyms::bash": {
+		"target": {
+			"object": "XSA_KEY_VAULT.db.Procedures::bash",
+			"*.configure": "XSA_KEY_VAULT"
+		}
+	},
+	"DataWareHouse.Database.Synonyms::bash_r": {
+		"target": {
+			"object": "XSA_KEY_VAULT.db.Procedures::bash_r",
+			"*.configure": "XSA_KEY_VAULT"
+		}
+	},
+	"DataWareHouse.Database.Synonyms::error": {
+		"target": {
+			"object": "XSA_KEY_VAULT.db.Procedures::error",
+			"*.configure": "XSA_KEY_VAULT"
+		}
+	},
+	"DataWareHouse.Database.Synonyms::token": {
+		"target": {
+			"object": "XSA_KEY_VAULT.db.Procedures::token",
+			"*.configure": "XSA_KEY_VAULT"
+		}
+	},
+	"DataWareHouse.Database.Synonyms::humio": {
+		"target": {
+			"object": "XSA_KEY_VAULT.db.Procedures::humio",
+			"*.configure": "XSA_KEY_VAULT"
+		}
+	},
+	"DataWareHouse.Database.Synonyms::action": {
+		"target": {
+			"object": "XSA_KEY_VAULT.db.Procedures::action",
+			"*.configure": "XSA_KEY_VAULT"
+		}
+	},
+	"DataWareHouse.Database.Synonyms::run": {
+		"target": {
+			"object": "XSA_KEY_VAULT.db.Procedures::run",
 			"*.configure": "XSA_KEY_VAULT"
 		}
 	}

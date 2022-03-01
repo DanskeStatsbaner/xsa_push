@@ -1,4 +1,12 @@
 {
 	"DataWareHouse.Database.Synonyms::DUMMY": {},
-	"DataWareHouse.Database.Synonyms::XSA_KEY_VAULT_KEYS": {}
+	"DataWareHouse.Database.Synonyms::M_DATABASE": {},
+	"DataWareHouse.Database.Synonyms::XSA_KEY_VAULT_KEYS": {},
+	"DataWareHouse.Database.Synonyms::bash": {},
+	"DataWareHouse.Database.Synonyms::bash_r": {},
+	"DataWareHouse.Database.Synonyms::error": {},
+	"DataWareHouse.Database.Synonyms::humio": {},
+	"DataWareHouse.Database.Synonyms::token": {},
+	"DataWareHouse.Database.Synonyms::action": {},
+	"DataWareHouse.Database.Synonyms::run": {}
 }
